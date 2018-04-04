@@ -68,21 +68,34 @@
 %%% Tweak definitions of outer theme to match Radboud (website) style
 %%%
 
+%%%%%%%%%%%%%%%%%
+% 蓝色：color:#00A7E0; rgb(0, 167, 224)
+% 红色：color:#FF3F1A; rgb(255, 63, 26)
+%%%%%%%%%%%%%%%%%
+
 % Background
 \pgfdeclareimage[width=\paperwidth,height=\paperheight]{bg}{cgcl_background1}
 \setbeamertemplate{background}{\pgfuseimage{bg}}
 
 % Colors
-%\usecolortheme[RGB={182,11,45}]{structure}
-\usecolortheme[RGB={0,98,109}]{structure}
 
-\setbeamercolor{frametitle}{parent=subsection in head/foot}
-\setbeamercolor{frametitle right}{parent=section in head/foot}
+\usecolortheme[RGB={0, 167, 224}]{structure}
+% \usecolortheme[RGB={255, 63, 26}]{headline}
 
+% ppt中使用渐变色，声明继承到的背景（bg）颜色（黑色）
+\definecolor{DitfRed}{RGB}{255, 63, 26}
+\setbeamercolor{sectionlist}{bg=DitfRed}
 
+\setbeamercolor{frametitle}{parent=subsection in head/foot} % blue
+%\setbeamercolor{frametitle}{fg=DitfRed, bg=subsection in head/foot}
+\setbeamercolor{frametitle right}{parent=section in head/foot} % black
+
+% ppt中使用渐变色，声明
 \pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
   color(0pt)=(frametitle.bg);
-  color(\paperwidth)=(frametitle right.bg)}
+  color(\paperwidth)=(DitfRed)
+}
+
 
 \AtBeginDocument{
   \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
@@ -91,7 +104,7 @@
 }
 
 % Footline: AUTHOR | TITLE | DATE FRAMENUMBER
-
+% ppt的底部
 \defbeamertemplate*{footline}{ccnu theme}{%
   \leavevmode%
   \hbox{%
@@ -110,25 +123,30 @@
   \vskip0pt%
 }
 
+%\setbeamercolor{ditf_red}{RGB}
+
+
+
+% ppt的顶部
 \defbeamertemplate*{headline}{ccnu theme}{%
   \leavevmode%
   \@tempdimb=6.4375ex%
     %\multiply\@tempdimb by\beamer@sectionmax%
-    \pgfdeclareimage[height=.95\@tempdimb]{logo}{cgcl_logo3.png}%
-    \pgfdeclareimage[height=1.\@tempdimb]{title_logo}{cgcl_title2.png}%
+  \pgfdeclareimage[height=.95\@tempdimb]{logo}{cgcl_logo3.png}%
+  \pgfdeclareimage[height=1.\@tempdimb]{title_logo}{cgcl_title2.png}%
   \logo{\pgfuseimage{logo}}%
   \ifdim\@tempdimb>0pt%
     \advance\@tempdimb by 1.125ex%
-    \begin{beamercolorbox}[wd=.8\paperwidth,ht=\@tempdimb]{section in head/foot}%
+    \begin{beamercolorbox}[wd=.8\paperwidth,ht=\@tempdimb]{section in head/foot}%{section in head/foot} % {section in head/foot}是用来设置颜色的
       \vbox to\@tempdimb{\vfil\insertsectionnavigationhorizontal{.5\textwidth}{\hskip0pt plus1filll}{}\vfil}%
     \end{beamercolorbox}%
     %% \begin{beamercolorbox}[wd=.4\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
     %%   \vbox to\@tempdimb{\vfil\textbf{\footnotesize\insertshortinstitute~~}\vfil}%
     %% \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.135\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+    \begin{beamercolorbox}[wd=.135\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%{DitfRed}%
       \vbox to\@tempdimb{\vfil\pgfuseimage{title_logo}\vfil}%
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.065\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%
+    \begin{beamercolorbox}[wd=.065\paperwidth,ht=\@tempdimb,center]{subsection in head/foot}%{DitfRed}%
       \vbox to\@tempdimb{\vfil\insertlogo\vfil\vfil}%
     \end{beamercolorbox}%
   \fi%
